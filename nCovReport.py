@@ -75,7 +75,7 @@ class nCov_2019(object):
         self.driver.get(self.web_url)
         time.sleep(2)
         self.img_url = self.driver.find_element_by_class_name('mapImg___3LuBG').get_attribute('src')
-        self.update_time = self.driver.find_element_by_class_name('mapTitle___2QtRg').text.split('(')[0]
+        self.update_time = self.driver.find_element_by_class_name('mapTitle___2QtRg').text.split(u'（')[0]
         self.person_count = self.driver.find_element_by_class_name('content___2hIPS').text
 
     def wx_work(self):

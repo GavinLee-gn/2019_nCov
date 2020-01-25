@@ -143,6 +143,7 @@ class nCov_2019(object):
                 pass
 
     def start(self):
+        print('start')
         self.init_web_driver()
         self.get_infomation()
         print(self.update_time)
@@ -150,6 +151,7 @@ class nCov_2019(object):
         self.wx_work()
         self.driver.close()
         self.driver.quit()
+
 
     def pre_start(self):
         self.load_ini()
@@ -161,20 +163,19 @@ class nCov_2019(object):
         else:
             # 开始时间如果不为N，则看间隔时间
             start_time_hr, start_time_min = self.start_time.split(':')
-            time_list = [self.start_time]
+            self.time_list = [self.start_time]
             temp_hr = int(start_time_hr)
             str_time_log = ''
             # 将间隔时间加入skd
-            while len(time_list) <= int(24 / self.inter):
+            while len(self.time_list) <= int(24 / self.inter):
                 temp_time = '{:0>2s}'.format(str(temp_hr)) + ':' + '{:0>2s}'.format(start_time_min)
-                time_list.append(temp_time)
-                str_time_log += temp_time
+                self.time_list.append(temp_time)
+                str_time_log += temp_time +'\n'
                 schedule.every().day.at(temp_time).do(self.start)
                 temp_hr += self.inter
                 if temp_hr >= 24:
                     temp_hr = temp_hr - 24
-                print(temp_hr)
-            print('min:' + start_time_min)
+            print(str_time_log)
             # 新建skd
             while True:
                 schedule.run_pending()
